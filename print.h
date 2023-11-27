@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 
 // Requires T to have ::iterator and ::const_iterator, which should 
 // guarantee that the type is iterable as far as the STL is concerned
@@ -16,7 +15,7 @@ void print_iterable( const T& t)
    std::cout << t;
 }
 
-// Print a vector (can be deeply nested)
+// Print a iterable (can be deeply nested)
 template<Iterable T>
 void print_iterable(const T& t)
 {  

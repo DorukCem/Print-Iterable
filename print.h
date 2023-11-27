@@ -15,14 +15,22 @@ void print_iterable( const T& t)
    std::cout << t;
 }
 
+// Specialization for std::string (should be treated like non-iterable)
+void print_iterable(const std::string& str)
+{
+   std::cout << str;
+}
+
 // Print a iterable (can be deeply nested)
 template<Iterable T>
 void print_iterable(const T& t)
 {  
+   int indx = 0;
    std::cout << '[';
    for (auto it = t.begin(); it != t.end(); ++it) {
       print_iterable(*it); // <---- Recursive call to to one level deeper
-      if (it != t.end()-1) { 
+
+      if (indx++ != t.size() - 1) { 
          std::cout << ", "; 
       }
    } 

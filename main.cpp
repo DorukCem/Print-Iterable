@@ -1,5 +1,6 @@
 #include "print.h"
 #include "string"
+#include "array"
 
 int main() {
 
@@ -13,5 +14,7 @@ int main() {
    print(vecofvecs); 
    print(vecofvecofvecs); 
 
+   print(std::array<int, 3>{1 ,2, 3});
+   
    return 0;
 }

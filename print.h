@@ -1,4 +1,6 @@
 #include <iostream>
+#include <tuple>
+#include <utility>
 
 // Requires T to have ::iterator and ::const_iterator, which should 
 // guarantee that the type is iterable as far as the STL is concerned
@@ -19,6 +21,33 @@ void print_iterable( const T& t)
 void print_iterable(const std::string& str)
 {
    std::cout << str;
+}
+
+// Print bools
+void print_iterable(const bool b) {
+   std::cout << std::boolalpha << b;
+}
+
+// Print a tuple
+template<typename TupType, size_t... I>
+void print(const TupType& tup, std::index_sequence<I...>)
+{
+   std::cout << "(";
+   (..., (std::cout << (I == 0 ? "" : ", ") << std::get<I>(tup))); // Fold expression: get<0>, get<1>, ...
+   std::cout << ")" << std::endl;
+}
+// Wrapper for printing a tuple
+template<typename... T>
+void print (const std::tuple<T...>& tup)
+{
+   print(tup, std::make_index_sequence<sizeof...(T)>()); // make_index_sequence -> 0, 1, 2, ..., N-1 
+}
+
+// Print a pair
+template<class T1, class T2>
+void print_iterable(const std::pair<T1, T2>& pair)
+{
+   std::cout << "(" << pair.first << " : " << pair.second << ")";
 }
 
 // Print a iterable (can be deeply nested)

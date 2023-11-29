@@ -20,21 +20,8 @@ int main() {
       {8, {{9, {{10, "E"}, {11, "F"}}}, {12, {{13, "G"}, {14, "H"}}}}}
    };
 
-   // Nested std::map with strings
-   std::map<std::string, std::map<std::string, std::map<std::string, int>>> nestedMap2 = {
-      {"one", {{"two", {{"three", 1}, {"four", 2}}}, {"five", {{"six", 3}, {"seven", 4}}}}},
-      {"eight", {{"nine", {{"ten", 5}, {"eleven", 6}}}, {"twelve", {{"thirteen", 7}, {"fourteen", 8}}}}}
-   };
-
-   // Nested std::map with mixed types
-   std::map<int, std::map<std::string, std::map<char, double>>> nestedMap3 = {
-      {1, {{"two", {{'a', 1.1}, {'b', 2.2}}}, {"three", {{'c', 3.3}, {'d', 4.4}}}}},
-      {5, {{"six", {{'e', 5.5}, {'f', 6.6}}}, {"seven", {{'g', 7.7}, {'h', 8.8}}}}}
-   };
    
-   // print(nestedMap1);
-   // print(nestedMap2);
-   // print(nestedMap3);
+   print(nestedMap1);
 
    print("C-Style"); // * -> C style string
    print(std::string{"std::string"});
@@ -44,6 +31,7 @@ int main() {
    print(vecofvecofvecs); 
    print(vecofarrs); 
    print(std::array<int, 3>{1 ,2, 3});
+   print(std::array<std::vector<int>, 1> {std::vector{1,2,3}} ) ;
    print(hashset);
    print(hashmap);
    print(std::make_pair(4, 2)); // * pair
@@ -51,7 +39,10 @@ int main() {
    print(pointer);
    print(true);
    print(false);
+   print(std::make_pair(std::vector<int>{1, 2, 3}, std::map<int, std::string>{ {1, "Run"}, {2, "The"}} ));
    
+   // print(std::tuple<std::vector<int>>{{1,2,3}});
+
    return 0;
 }
 

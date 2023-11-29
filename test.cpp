@@ -41,9 +41,9 @@ int main() {
    print(false);
    print(std::make_pair(std::vector<int>{1, 2, 3}, std::map<int, std::string>{ {1, "Run"}, {2, "The"}} ));
    
-   // print(std::tuple<std::vector<int>>{{1,2,3}});
+   print(std::tuple<std::vector<int>>{{1,2,3}});
 
    return 0;
 }
 
-// TODO: deeply_nested maps, variadic arguements, optional arguements
+// TODO: comma between tuples, variadic arguements, optional arguements

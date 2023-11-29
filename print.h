@@ -57,8 +57,9 @@ void print_iterable(const bool b) {
 template<typename TupType, size_t... I>
 void print_iterable(const TupType& tup, std::index_sequence<I...>)
 {
+   // ! std::cout << (I == 0 ? "" : ", ") << std::get<I>(tup)
    std::cout << "(";
-   (..., (std::cout << (I == 0 ? "" : ", ") << std::get<I>(tup))); // Fold expression: get<0>, get<1>, ...
+   (..., print_iterable( std::get<I>(tup) ) ); // Fold expression: get<0>, get<1>, ...
    std::cout << ")";
 }
 // Wrapper for printing a tuple

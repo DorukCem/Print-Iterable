@@ -53,13 +53,20 @@ void print_iterable(const bool b) {
    std::cout << std::boolalpha << b;
 }
 
+// Helper to put commas between print statments inside fold expression
+template<typename T>
+void print_with_delim(const T& t, size_t I, size_t index_length)
+{
+   print_iterable(t);
+   if (I != index_length-1) {std::cout << ", ";}
+}
+
 // Print a tuple
 template<typename TupType, size_t... I>
-void print_iterable(const TupType& tup, std::index_sequence<I...>)
+void print_iterable(const TupType& tup, std::index_sequence<I...> index_s)
 {
-   // ! std::cout << (I == 0 ? "" : ", ") << std::get<I>(tup)
    std::cout << "(";
-   (..., print_iterable( std::get<I>(tup) ) ); // Fold expression: get<0>, get<1>, ...
+   (..., print_with_delim( std::get<I>(tup) , I, index_s.size()) ); // Fold expression: get<0>, get<1>, ...
    std::cout << ")";
 }
 // Wrapper for printing a tuple
@@ -68,6 +75,7 @@ void print_iterable(const std::tuple<T...>& tup)
 {
    print_iterable(tup, std::make_index_sequence<sizeof...(T)>()); // make_index_sequence -> 0, 1, 2, ..., N-1 
 }
+
 
 // Print a pair
 template<class T1, class T2>

@@ -12,93 +12,95 @@ concept Iterable = requires(T a) {
 
 // Forward declarations
 template<typename T>
-void print_iterable(const T& t);
+void print_iterable(const T& t, const std::string& sep);
 
-void print_iterable(const std::string& str);
+void print_iterable(const std::string& str, const std::string& sep);
 
-void print_iterable(const bool b);
+void print_iterable(const bool b, const std::string& sep);
 
 template<typename TupType, size_t... I>
-void print_iterable(const TupType& tup, std::index_sequence<I...>);
+void print_iterable(const TupType& tup, std::index_sequence<I...>, const std::string& sep);
 
 template<typename... T>
-void print_iterable(const std::tuple<T...>& tup);
+void print_iterable(const std::tuple<T...>& tup, const std::string& sep);
 
 template<class T1, class T2>
-void print_iterable(const std::pair<T1, T2>& pair);
+void print_iterable(const std::pair<T1, T2>& pair, const std::string& sep);
 
 template<Iterable T>
-void print_iterable(const T& t);
+void print_iterable(const T& t, const std::string& sep);
 
 template<typename T>
-void print(const T& t);
+void print(const T& t, const std::string& sep = ", ", const std::string& end = "\n");
 
 // ----------------- End of forward declartions
 
-// Print a non iterable type
+// Print a non-iterable type
 template<typename T>
-void print_iterable( const T& t)
+void print_iterable(const T& t, const std::string& sep)
 {
    std::cout << t;
 }
 
 // Specialization for std::string (should be treated like non-iterable)
-void print_iterable(const std::string& str)
+void print_iterable(const std::string& str, const std::string& sep)
 {
    std::cout << str;
 }
 
 // Print bools
-void print_iterable(const bool b) {
+void print_iterable(const bool b, const std::string& sep) {
    std::cout << std::boolalpha << b;
 }
 
-// Helper to put commas between print statments inside fold expression
+// Helper to put sep string between print statements inside fold expression
 template<typename T>
-void print_with_delim(const T& t, size_t I, size_t index_length)
+void print_with_delim(const T& t, size_t I, size_t index_length, const std::string& sep)
 {
-   print_iterable(t);
-   if (I != index_length-1) {std::cout << ", ";}
+   print_iterable(t, sep);
+   if (I != index_length - 1) {
+      std::cout << sep;
+   }
 }
 
 // Print a tuple
 template<typename TupType, size_t... I>
-void print_iterable(const TupType& tup, std::index_sequence<I...> index_s)
+void print_iterable(const TupType& tup, std::index_sequence<I...> index_s, const std::string& sep)
 {
    std::cout << "(";
-   (..., print_with_delim( std::get<I>(tup) , I, index_s.size()) ); // Fold expression: get<0>, get<1>, ...
+   (..., print_with_delim(std::get<I>(tup), I, index_s.size(), sep)); // Fold expression: get<0>, get<1>, ...
    std::cout << ")";
 }
+
 // Wrapper for printing a tuple
 template<typename... T>
-void print_iterable(const std::tuple<T...>& tup)
+void print_iterable(const std::tuple<T...>& tup, const std::string& sep)
 {
-   print_iterable(tup, std::make_index_sequence<sizeof...(T)>()); // make_index_sequence -> 0, 1, 2, ..., N-1 
+   print_iterable(tup, std::make_index_sequence<sizeof...(T)>(), sep); // make_index_sequence -> 0, 1, 2, ..., N-1 
 }
-
 
 // Print a pair
 template<class T1, class T2>
-void print_iterable(const std::pair<T1, T2>& pair)
+void print_iterable(const std::pair<T1, T2>& pair, const std::string& sep)
 {
    std::cout << "(";
-   print_iterable(pair.first );
+   print_iterable(pair.first, sep);
    std::cout << " : ";
-   print_iterable(pair.second); 
-   std::cout<< ")";
+   print_iterable(pair.second, sep); 
+   std::cout << ")";
 }
 
-// Print a iterable (can be deeply nested)
+// Print an iterable (can be deeply nested)
 template<Iterable T>
-void print_iterable(const T& t)
+void print_iterable(const T& t, const std::string& sep)
 {  
    int indx = 0;
    std::cout << '[';
    for (auto it = t.begin(); it != t.end(); ++it) {
-      print_iterable(*it); // <---- Recursive call to to one level deeper
+      print_iterable(*it, sep); // <---- Recursive call to go one level deeper
 
       if (indx++ != t.size() - 1) { 
-         std::cout << ", "; 
+         std::cout << sep; 
       }
    } 
    std::cout << ']';
@@ -106,15 +108,8 @@ void print_iterable(const T& t)
 
 // Wrapper
 template<typename T>
-void print( const T& t)
+void print(const T& t, const std::string& sep, const std::string& end)
 {
-   print_iterable(t);
-   std::cout << std::endl;
-}
-
-// Variadic arguments
-template <typename ... Ts>
-void print(const Ts & ... ts)
-{
-   (print(ts), ...);
+   print_iterable(t, sep);
+   std::cout << end;
 }

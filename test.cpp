@@ -20,7 +20,6 @@ int main() {
       {8, {{9, {{10, "E"}, {11, "F"}}}, {12, {{13, "G"}, {14, "H"}}}}}
    };
 
-   
    print(nestedMap1);
 
    print("C-Style"); // * -> C style string
@@ -42,9 +41,12 @@ int main() {
    print(std::make_pair(std::vector<int>{1, 2, 3}, std::map<int, std::string>{ {1, "Run"}, {2, "The"}} ));
    
    print(std::tuple<std::vector<int>>{{1,2,3}});
-   print(1, "asdasd", 0.6f);
-
+   
+   print(std::vector<int>{1,2,3,4}, "----"); // * Optional paremeter sep
+   print(std::vector<int>{1,2,3,4}, "**", "  "); // * Optional paremeter sep
+   print("same line as vec"); // * Optional paremeter sep
+   
    return 0;
 }
 
-// TODO: optional arguements
+// TODO: namespace and library practices

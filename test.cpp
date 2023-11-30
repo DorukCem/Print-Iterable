@@ -3,7 +3,6 @@
 
 int main() {
 
-
    std::vector<int> veci{1, 2, 3};
    std::vector<std::string> vecs{"hello", "my", "name"};
    std::vector<std::vector<int>> vecofvecs = {{1,2,3}, {2,4}}; // * -> Deeply nested
@@ -20,8 +19,11 @@ int main() {
       {8, {{9, {{10, "E"}, {11, "F"}}}, {12, {{13, "G"}, {14, "H"}}}}}
    };
 
-   print(nestedMap1);
+   p::print("Hello World");
 
+   using namespace p;
+
+   print(nestedMap1);
    print("C-Style"); // * -> C style string
    print(std::string{"std::string"});
    print(veci);
@@ -44,9 +46,9 @@ int main() {
    
    print(std::vector<int>{1,2,3,4}, "----"); // * Optional paremeter sep
    print(std::vector<int>{1,2,3,4}, "**", "  "); // * Optional paremeter sep
-   print("same line as vec"); // * Optional paremeter sep
+   print("same line as vec"); // * should be on the same line as previous print because previous end was "  "
    
    return 0;
 }
 
-// TODO: namespace and library practices
+// TODO: test??

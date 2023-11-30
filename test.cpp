@@ -42,8 +42,9 @@ int main() {
    print(std::make_pair(std::vector<int>{1, 2, 3}, std::map<int, std::string>{ {1, "Run"}, {2, "The"}} ));
    
    print(std::tuple<std::vector<int>>{{1,2,3}});
+   print(1, "asdasd", 0.6f);
 
    return 0;
 }
 
-// TODO: comma between tuples, variadic arguements, optional arguements
+// TODO: optional arguements

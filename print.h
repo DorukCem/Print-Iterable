@@ -110,4 +110,11 @@ void print( const T& t)
 {
    print_iterable(t);
    std::cout << std::endl;
-}  
+}
+
+// Variadic arguments
+template <typename ... Ts>
+void print(const Ts & ... ts)
+{
+   (print(ts), ...);
+}

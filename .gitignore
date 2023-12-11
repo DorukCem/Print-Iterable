@@ -1,6 +1,4 @@
 /-p
 /.vscode
-AST_printer.h
 *.o
 *.exe
-*.lox

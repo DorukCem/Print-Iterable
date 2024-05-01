@@ -35,6 +35,11 @@ namespace p {
       template<Iterable T>
       void print_iterable(const T& t, const std::string& sep);
 
+      template <typename T, size_t size>
+      void print_iterable(const T (&array)[size]);
+
+      template<size_t N>
+      void print_iterable(const char (&arr)[N], const std::string& sep);
 
       // ----------------- End of forward declartions
 
@@ -91,6 +96,27 @@ namespace p {
          std::cout << " : ";
          print_iterable(pair.second, sep); 
          std::cout << ")";
+      }
+
+      // print an aray
+      template <typename T, size_t size>
+      void print_iterable(const T (&array)[size], const std::string& sep)
+      {
+         std::cout << '[';
+         for (size_t i = 0; i < size; ++i) {
+            print_iterable(array[i], sep);
+            if (i != size - 1) {
+               std::cout << sep;
+            }
+         }
+         std::cout << ']';
+      }
+
+      // Specialization for char arrays (treated like strings)
+      template<size_t N>
+      void print_iterable(const char (&arr)[N], const std::string& sep)
+      {
+         std::cout << arr;
       }
 
       // Print an iterable (can be deeply nested)

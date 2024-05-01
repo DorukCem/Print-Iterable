@@ -2,7 +2,13 @@
 #include <bits/stdc++.h>
 
 int main() {
-
+   std::cout << "-----\n";
+   int arr[] = {1, 2, 3, 4, 5};
+   int arr2d[2][5] =
+   {
+      {1,8,12,20,25},
+      {5,9,13,24,26}
+   };
    std::vector<int> veci{1, 2, 3};
    std::vector<std::string> vecs{"hello", "my", "name"};
    std::vector<std::vector<int>> vecofvecs = {{1,2,3}, {2,4}}; // * -> Deeply nested
@@ -23,6 +29,8 @@ int main() {
 
    using namespace p;
 
+   print(arr);
+   print(arr2d);
    print(nestedMap1);
    print("C-Style"); // * -> C style string
    print(std::string{"std::string"});
